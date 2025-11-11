@@ -1,0 +1,625 @@
+{
+  "datasets": [
+    {
+      "name": "7ed25fea",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT price FROM svl_project.houseprice_pred.housepricetbl;"
+      ]
+    },
+    {
+      "name": "87de95fe",
+      "displayName": "Areas with most expensive houses",
+      "queryLines": [
+        "SELECT \n",
+        "  zipcode, lat, long,\n",
+        "  ROUND(AVG(price), 2) AS avg_price,\n",
+        "  COUNT(*) AS total_sales\n",
+        "FROM svl_project.houseprice_pred.housepricetbl\n",
+        "GROUP BY zipcode, lat, long\n",
+        "ORDER BY avg_price DESC\n",
+        "LIMIT 20;"
+      ]
+    },
+    {
+      "name": "4f28952c",
+      "displayName": "Average Price by number of Bedrooms",
+      "queryLines": [
+        "SELECT bedrooms, COUNT(*) AS num_houses, ROUND(AVG(price),2) AS avg_price\n",
+        "FROM svl_project.houseprice_pred.housepricetbl\n",
+        "GROUP BY bedrooms\n",
+        "ORDER BY bedrooms;"
+      ]
+    },
+    {
+      "name": "b73102e3",
+      "displayName": "Price Vs  Living Area",
+      "queryLines": [
+        "SELECT FLOOR(sqft_lot/500) *500 AS sqft_bin,\n",
+        "       COUNT(*) AS num_houses,\n",
+        "       ROUND(AVG(price), 2) AS avg_price\n",
+        "FROM svl_project.houseprice_pred.housepricetbl\n",
+        "GROUP BY sqft_bin \n",
+        "ORDER BY sqft_bin"
+      ]
+    },
+    {
+      "name": "54e4bbaf",
+      "displayName": "Price Vs Year Built",
+      "queryLines": [
+        "SELECT FLOOR(yr_built/10)*10 AS decade,\n",
+        "       COUNT(*) AS num_houses,\n",
+        "       ROUND(AVG(price), 2) AS avg_price\n",
+        "FROM svl_project.houseprice_pred.housepricetbl\n",
+        "GROUP BY decade\n",
+        "ORDER BY decade;"
+      ]
+    },
+    {
+      "name": "96fea18d",
+      "displayName": "Price Vs Grade",
+      "queryLines": [
+        "SELECT \n",
+        "  grade,\n",
+        "  COUNT(*) AS num_houses,\n",
+        "  ROUND(AVG(price), 2) AS avg_price\n",
+        "FROM svl_project.houseprice_pred.housepricetbl\n",
+        "GROUP BY grade\n",
+        "ORDER BY grade;"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "c2ead094",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "4f3e13e1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "7ed25fea",
+                  "fields": [
+                    {
+                      "name": "price",
+                      "expression": "`price`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "histogram",
+              "encodings": {
+                "x": {
+                  "fieldName": "price",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "price"
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "mark": {
+                "layout": "layer",
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Distribution of house prices."
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "54bd6712",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "87de95fe",
+                  "fields": [
+                    {
+                      "name": "lat",
+                      "expression": "`lat`"
+                    },
+                    {
+                      "name": "long",
+                      "expression": "`long`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "symbol-map",
+              "encodings": {
+                "coordinates": {
+                  "latitude": {
+                    "fieldName": "lat"
+                  },
+                  "longitude": {
+                    "fieldName": "long"
+                  }
+                }
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Zipcodes with the highest average home prices."
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e0eeac4c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4f28952c",
+                  "fields": [
+                    {
+                      "name": "bedrooms",
+                      "expression": "`bedrooms`"
+                    },
+                    {
+                      "name": "sum(avg_price)",
+                      "expression": "SUM(`avg_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "bedrooms",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_price)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Average Price by number of Bedrooms"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "c28d2d07",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b73102e3",
+                  "fields": [
+                    {
+                      "name": "sqft_bin",
+                      "expression": "`sqft_bin`"
+                    },
+                    {
+                      "name": "avg_price",
+                      "expression": "`avg_price`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "sqft_bin",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg_price",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Price Vs Living Area."
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 18,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "e16e2a80",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "54e4bbaf",
+                  "fields": [
+                    {
+                      "name": "decade",
+                      "expression": "`decade`"
+                    },
+                    {
+                      "name": "sum(avg_price)",
+                      "expression": "SUM(`avg_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "decade",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_price)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Price Vs Decade Built."
+              },
+              "mark": {
+                "colors": [
+                  "#00A972"
+                ],
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 24,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "01e1cb39",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "96fea18d",
+                  "fields": [
+                    {
+                      "name": "grade",
+                      "expression": "`grade`"
+                    },
+                    {
+                      "name": "sum(avg_price)",
+                      "expression": "SUM(`avg_price`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "grade",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_price)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Price Vs Grade."
+              },
+              "mark": {
+                "colors": [
+                  "#FF3621"
+                ],
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 30,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "e824310d",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "04122985",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
