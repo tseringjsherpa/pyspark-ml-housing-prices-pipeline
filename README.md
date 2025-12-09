@@ -22,11 +22,11 @@ A machine learning project that predicts housing prices in Seattle using **Apach
 
 ```
 housing-price-prediction-pyspark/
-├── Seattle House Prices – PySpark ML.ipynb \
-├── Seattle House Prices – PySpark ML (1).html \
-├── Dashboard from Seattle House Prices PySpark ML.pdf \
-├── house-data.csv \
-├── requirements.txt \
+├── Seattle House Prices – PySpark ML.ipynb 
+├── Seattle House Prices – PySpark ML (1).html 
+├── Dashboard from Seattle House Prices PySpark ML.pdf 
+├── house-data.csv 
+├── requirements.txt 
 └── README.md
 ```
 
